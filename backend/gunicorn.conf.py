@@ -1,5 +1,5 @@
 # Gunicorn configuration file for Postify backend
-# Usage: gunicorn -c gunicorn.conf.py app.main:app
+# Usage: gunicorn -c gunicorn.conf.py postify.wsgi
 
 import multiprocessing
 import os

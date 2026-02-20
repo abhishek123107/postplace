@@ -1,5 +1,5 @@
 # Simple Gunicorn configuration for development
-# Usage: gunicorn -c gunicorn_config.py app.main:app
+# Usage: gunicorn -c gunicorn_config.py postify.wsgi
 
 import multiprocessing
 

@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
     libpq-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for better caching
@@ -39,4 +40,4 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
 EXPOSE 8000
 
 # Start with Gunicorn
-CMD ["gunicorn", "-c", "gunicorn.conf.py", "app.main:app"]
+CMD ["gunicorn", "-c", "gunicorn.conf.py", "postify.wsgi"]

@@ -20,17 +20,17 @@ pip install -r requirements.txt
 
 REM Start Gunicorn with configuration
 echo Starting Postify backend with Gunicorn...
-gunicorn -c gunicorn.conf.py app.main:app
+gunicorn -c gunicorn.conf.py postify.wsgi
 
 REM Alternative commands for different environments:
 
 REM Development (with auto-reload):
-REM gunicorn -c gunicorn_config.py app.main:app
+REM gunicorn -c gunicorn_config.py postify.wsgi
 
 REM Production (optimized):
-REM gunicorn -c gunicorn.conf.py app.main:app
+REM gunicorn -c gunicorn.conf.py postify.wsgi
 
 REM Simple production:
-REM gunicorn --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 app.main:app
+REM gunicorn --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 postify.wsgi
 
 pause
