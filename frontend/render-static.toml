@@ -1,0 +1,16 @@
+# Static site configuration for Render
+# This file tells Render to use the 'build' directory for static deployment
+
+[build]
+  publish = "build"
+  
+[build.environment]
+  NODE_VERSION = "22"
+
+[build.commands]
+  "npm install && npm run build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

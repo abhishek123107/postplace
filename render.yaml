@@ -1,0 +1,29 @@
+# Render.yaml configuration for Postify deployment
+services:
+  # Backend service
+  - type: web
+    name: postify-backend
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn -c gunicorn.conf.py wsgi"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
+      - key: ENVIRONMENT
+        value: production
+    healthCheck:
+      path: /health
+      port: 8000
+
+  # Frontend service (Static Site)
+  - type: web
+    name: postify-frontend
+    runtime: static
+    buildCommand: "npm install && npm run build"
+    publishPath: build
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+    healthCheck:
+      path: /
+      port: 3000
