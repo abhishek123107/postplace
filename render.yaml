@@ -1,4 +1,6 @@
-# Render.yaml configuration for Postify deployment
+# Render configuration for Postify deployment
+# This file tells Render how to build and deploy both frontend and backend
+
 services:
   # Backend service
   - type: web
@@ -18,12 +20,14 @@ services:
   # Frontend service (Static Site)
   - type: web
     name: postify-frontend
-    runtime: static
+    runtime: node
     buildCommand: "npm install && npm run build"
-    publishPath: build
+    startCommand: "serve -s build -l 3000"
     envVars:
       - key: NODE_VERSION
         value: 22
+      - key: REACT_APP_API_URL
+        value: https://postify-backend.onrender.com
     healthCheck:
       path: /
       port: 3000
