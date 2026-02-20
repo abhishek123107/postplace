@@ -20,18 +20,18 @@ pip install -r requirements.txt
 
 # Start Gunicorn with configuration
 echo "Starting Postify backend with Gunicorn..."
-gunicorn -c gunicorn.conf.py postify.wsgi
+gunicorn -c gunicorn.conf.py wsgi
 
 # Alternative commands for different environments:
 
 # Development (with auto-reload):
-# gunicorn -c gunicorn_config.py postify.wsgi
+# gunicorn -c gunicorn_config.py wsgi
 
 # Production (optimized):
-# gunicorn -c gunicorn.conf.py postify.wsgi
+# gunicorn -c gunicorn.conf.py wsgi
 
 # Simple production:
-# gunicorn --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 postify.wsgi
+# gunicorn --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 wsgi
 
 # Docker production:
-# gunicorn -c gunicorn.conf.py postify.wsgi --bind 0.0.0.0:8000
+# gunicorn -c gunicorn.conf.py wsgi --bind 0.0.0.0:8000

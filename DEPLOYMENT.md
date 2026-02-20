@@ -22,7 +22,7 @@ pip install -r backend/requirements.txt
 
 # Start with auto-reload
 cd backend
-gunicorn -c gunicorn_config.py postify.wsgi
+gunicorn -c gunicorn_config.py wsgi
 ```
 
 ### Production
@@ -35,7 +35,7 @@ pip install -r backend/requirements.txt
 
 # Start production server
 cd backend
-gunicorn -c gunicorn.conf.py postify.wsgi
+gunicorn -c gunicorn.conf.py wsgi
 ```
 
 ## Configuration Files

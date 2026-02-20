@@ -40,4 +40,4 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
 EXPOSE 8000
 
 # Start with Gunicorn
-CMD ["gunicorn", "-c", "gunicorn.conf.py", "postify.wsgi"]
+CMD ["gunicorn", "-c", "gunicorn.conf.py", "wsgi"]

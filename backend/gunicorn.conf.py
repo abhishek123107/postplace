@@ -1,5 +1,5 @@
 # Gunicorn configuration file for Postify backend
-# Usage: gunicorn -c gunicorn.conf.py postify.wsgi
+# Usage: gunicorn -c gunicorn.conf.py wsgi
 
 import multiprocessing
 import os
@@ -29,7 +29,7 @@ proc_name = "postify-backend"
 
 # Server mechanics
 daemon = False
-pidfile = "/tmp/gunicorn.pid"
+pidfile = "./gunicorn.pid"
 user = None
 group = None
 tmp_upload_dir = None
