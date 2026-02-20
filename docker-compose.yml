@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  postify-backend:
+    build: ./backend
+    container_name: postify-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - DB_PATH=/app/tokens.db
+      - UPLOAD_DIR=/app/uploads
+      - FRONTEND_ORIGIN=http://localhost:3000
+      - BACKEND_PUBLIC_BASE=http://localhost:8000
+      - BRAND_NAME=Postify
+      - BRAND_PRIMARY=#0f172a
+      - BRAND_SECONDARY=#334155
+      - BRAND_ACCENT=#22c55e
+      - DEFAULT_TZ=Asia/Kolkata
+      # Add your actual API keys here for production
+      # - FACEBOOK_APP_ID=${FACEBOOK_APP_ID}
+      # - FACEBOOK_APP_SECRET=${FACEBOOK_APP_SECRET}
+      # - META_REDIRECT_URI=${META_REDIRECT_URI}
+      # - IG_USER_ID=${IG_USER_ID}
+      # - TWITTER_API_KEY=${TWITTER_API_KEY}
+      # - TWITTER_API_SECRET=${TWITTER_API_SECRET}
+      # - TWITTER_REDIRECT_URI=${TWITTER_REDIRECT_URI}
+      # - LINKEDIN_CLIENT_ID=${LINKEDIN_CLIENT_ID}
+      # - LINKEDIN_CLIENT_SECRET=${LINKEDIN_CLIENT_SECRET}
+      # - LINKEDIN_REDIRECT_URI=${LINKEDIN_REDIRECT_URI}
+      # - OPENAI_API_KEY=${OPENAI_API_KEY}
+      # - OPENAI_MODEL=${OPENAI_MODEL}
+      # - SDXL_PROVIDER=${SDXL_PROVIDER}
+      # - REPLICATE_API_TOKEN=${REPLICATE_API_TOKEN}
+      # - REPLICATE_SDXL_MODEL_VERSION=${REPLICATE_SDXL_MODEL_VERSION}
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/tokens.db:/app/tokens.db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  postify-frontend:
+    build: ./frontend
+    container_name: postify-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    depends_on:
+      - postify-backend
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: postify-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - postify-backend
+      - postify-frontend
+    restart: unless-stopped
+
+volumes:
+  uploads:
+  tokens:
+  ssl:
